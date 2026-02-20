@@ -1,4 +1,4 @@
-package br.com.singletech.registro.entity.enums;
+package br.com.singletech.teste.registro.entity.enums;
 
 
 public enum Status {

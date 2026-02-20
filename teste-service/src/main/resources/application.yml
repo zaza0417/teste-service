@@ -18,6 +18,15 @@ spring:
       charset: UTF-8
       enabled: true
 
+  springdoc:
+    api-docs:
+      path: /v3/api-docs
+    swagger-ui:
+      path: /swagger
+      operationsSorter: method
+      tagsSorter: alpha
+    packages-to-scan: br.com.singletech.teste.registro
+
 server:
   port: 8082
   servlet:

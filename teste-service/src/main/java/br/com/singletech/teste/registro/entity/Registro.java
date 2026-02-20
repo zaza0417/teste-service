@@ -1,6 +1,7 @@
 package br.com.singletech.teste.registro.entity;
 
-import br.com.singletech.registro.entity.enums.Status;
+
+import br.com.singletech.teste.registro.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
