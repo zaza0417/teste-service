@@ -41,9 +41,9 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler(RegistroExistenteException.class)
     public ResponseEntity<ApiError> handleRegistroJaExiste(
-            BusinessException ex,
+            RegistroExistenteException ex,
             HttpServletRequest request) {
 
         log.warn("Conflito de recurso: {}", ex.getMessage());
@@ -60,9 +60,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler(StatusException.class)
     public ResponseEntity<ApiError> handleTransicaoInvalida(
-            BusinessException ex,
+            StatusException ex,
             HttpServletRequest request) {
 
         log.warn("Transição de status inválida: {}", ex.getMessage());
