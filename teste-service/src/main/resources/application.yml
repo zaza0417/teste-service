@@ -1,0 +1,35 @@
+spring:
+  profiles.active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/single
+    username: ${DB_USER:teste_single}
+    password: ${DB_PASSWORD_TESTE:test170415}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    org.springframework: WARN
+    org.hibernate: WARN
+    br.com.singletech: INFO

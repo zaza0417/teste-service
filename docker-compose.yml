@@ -1,0 +1,21 @@
+version: "3.8"
+
+
+services:
+  
+  postgres:
+    image: postgres:15
+    container_name: single
+    environment:
+      POSTGRES_DB: single
+      POSTGRES_USER: teste_single
+      POSTGRES_PASSWORD: test170415
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+
+volumes:
+  postgres_data:
