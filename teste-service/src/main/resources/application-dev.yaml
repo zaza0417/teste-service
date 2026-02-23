@@ -1,22 +1,27 @@
 server:
-  port: 8050
+  port: 8082
   servlet:
-    context-path: /api/v1/
+    context-path: /
 
 spring:
   config:
     activate:
       on-profile: dev
+
   datasource:
     url: jdbc:postgresql://localhost:5433/single
     username: ${DB_USER:teste_single}
     password: ${DB_PASSWORD_TESTE:test170415}
     driver-class-name: org.postgresql.Driver
-
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=10m,recordStats
 
   jpa:
     hibernate:
@@ -26,20 +31,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
   servlet:
     encoding:
       charset: UTF-8
       enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-        exclude: ''
-  endpoint:
-    health:
-      show-details: always
 
 logging:
   level:
@@ -47,5 +43,3 @@ logging:
     org.springframework: INFO
     org.hibernate: DEBUG
     br.com.singletech: DEBUG
-
-
