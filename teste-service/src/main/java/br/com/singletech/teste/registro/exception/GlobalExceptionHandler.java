@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -190,6 +192,44 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleInvalidJson(
+            HttpMessageNotReadableException ex,
+            HttpServletRequest request) {
+
+        log.warn("JSON invalido em {}: {}", request.getRequestURI(), ex.getMostSpecificCause().getMessage());
+
+        ApiError error = ApiError.builder()
+                .type("https://api.singletech.com.br/erros/json-invalido")
+                .title("JSON invalido")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .detail("O corpo da requisicao esta malformado. Verifique aspas, virgulas e chaves do JSON.")
+                .instance(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiError> handleNoResourceFound(
+            NoResourceFoundException ex,
+            HttpServletRequest request) {
+
+        log.warn("Recurso nao encontrado: {}", request.getRequestURI());
+
+        ApiError error = ApiError.builder()
+                .type("https://api.singletech.com.br/erros/recurso-nao-encontrado")
+                .title("Recurso nao encontrado")
+                .status(HttpStatus.NOT_FOUND.value())
+                .detail("O recurso solicitado nao foi encontrado.")
+                .instance(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(Exception.class)

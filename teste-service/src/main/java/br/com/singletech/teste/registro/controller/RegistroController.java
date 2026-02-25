@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -39,7 +38,7 @@ public class RegistroController {
     @Operation(
             summary = "Criar registro",
             description = "Cria um novo registro. O status inicial e definido como PENDENTE e a resposta inclui o header Location.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     description = "Dados para criacao do registro.",
                     content = @Content(schema = @Schema(implementation = RegistroRequest.class))
@@ -153,7 +152,7 @@ public class RegistroController {
     @Operation(
             summary = "Atualizar registro",
             description = "Atualiza os dados de um registro existente.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     description = "Dados para atualizacao do registro.",
                     content = @Content(schema = @Schema(implementation = RegistroRequest.class))

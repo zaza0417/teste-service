@@ -1,6 +1,7 @@
 package br.com.singletech.teste.registro.dto.response;
 
 import br.com.singletech.teste.registro.entity.enums.Status;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class RegistroResponse {
             format = "date-time",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
+    @JsonProperty("data_criacao")
     private LocalDateTime dataCriacao;
 
     @Schema(
@@ -81,5 +83,6 @@ public class RegistroResponse {
             type = "string",
             format = "date-time"
     )
+    @JsonProperty("data_atualizacao")
     private LocalDateTime dataAtualizacao;
 }

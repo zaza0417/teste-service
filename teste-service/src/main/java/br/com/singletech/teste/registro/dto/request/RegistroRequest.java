@@ -1,6 +1,7 @@
 package br.com.singletech.teste.registro.dto.request;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -73,4 +75,22 @@ public class RegistroRequest {
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String placaVeiculo;
+
+    @JsonProperty("data_criacao")
+    @Schema(
+            description = "Data e hora de criacao do registro.",
+            example = "2026-02-23T08:00:00",
+            type = "string",
+            format = "date-time"
+    )
+    private LocalDateTime dataCriacao;
+
+    @JsonProperty("data_atualizacao")
+    @Schema(
+            description = "Data e hora da ultima atualizacao do registro.",
+            example = "2026-02-23T08:30:00",
+            type = "string",
+            format = "date-time"
+    )
+    private LocalDateTime dataAtualizacao;
 }
