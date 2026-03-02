@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RegistroResponse",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "numeroContrato",
+    "data_criacao",
+    "status",
+    "valorContrato",
+    "nomeCliente",
+    "documentoCliente",
+    "placaVeiculo"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "numeroContrato": {
+      "type": "string",
+      "minLength": 1
+    },
+    "data_criacao": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PENDENTE", "PROCESSADO", "REGISTRADO", "REJEITADO"]
+    },
+    "valorContrato": {
+      "type": "number"
+    },
+    "nomeCliente": {
+      "type": "string",
+      "minLength": 1
+    },
+    "documentoCliente": {
+      "type": "string",
+      "minLength": 1
+    },
+    "placaVeiculo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "data_atualizacao": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  }
+}

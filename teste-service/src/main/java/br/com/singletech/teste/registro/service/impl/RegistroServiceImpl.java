@@ -7,6 +7,7 @@ import br.com.singletech.teste.registro.entity.Registro;
 import br.com.singletech.teste.registro.entity.enums.Status;
 import br.com.singletech.teste.registro.exception.BusinessException;
 import br.com.singletech.teste.registro.exception.RegistroExistenteException;
+import br.com.singletech.teste.registro.exception.RegistroRemocaoNaoPermitidaException;
 import br.com.singletech.teste.registro.exception.StatusException;
 import br.com.singletech.teste.registro.mapper.RegistroMapper;
 import br.com.singletech.teste.registro.repository.RegistroRepository;
@@ -157,6 +158,12 @@ public class RegistroServiceImpl {
     public void remover(Long id) {
         Registro entity = repository.findById(id)
                 .orElseThrow(() -> new BusinessException("Registro não encontrado para o id: " + id));
+        if (entity.getStatus() != PENDENTE) {
+            throw new RegistroRemocaoNaoPermitidaException(
+                    "Remocao nao permitida para registro no status: " + entity.getStatus()
+            );
+        }
+
         repository.delete(entity);
     }
 }
