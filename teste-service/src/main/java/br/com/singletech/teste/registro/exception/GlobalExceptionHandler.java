@@ -62,6 +62,25 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
+    @ExceptionHandler(RegistroRemocaoNaoPermitidaException.class)
+    public ResponseEntity<ApiError> handleRemocaoNaoPermitida(
+            RegistroRemocaoNaoPermitidaException ex,
+            HttpServletRequest request) {
+
+        log.warn("Remocao nao permitida: {}", ex.getMessage());
+
+        ApiError error = ApiError.builder()
+                .type("https://api.singletech.com.br/erros/conflito")
+                .title("Remocao nao permitida")
+                .status(HttpStatus.CONFLICT.value())
+                .detail(ex.getMessage())
+                .instance(request.getRequestURI())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
     @ExceptionHandler(StatusException.class)
     public ResponseEntity<ApiError> handleTransicaoInvalida(
             StatusException ex,
